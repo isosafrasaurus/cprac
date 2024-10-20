@@ -21,7 +21,20 @@ void reverse_array(int a[], int cnt) {
 	}
 }
 
+#if 0
 int main(){
-	int a[] = {1,2,3,4};
-	printf("%lld",sizeof(a[0])); // In bytes
+	int a[] = {1,2,3,4,5};
+	printf("%lld\n",sizeof(a[0])); // In bytes
+	reverse_array(a, 5);
+
+	for (int i = 0; i < 5; i++) {
+		printf("%d ", a[i]);
+	}
+	printf("\n");
+
+	int x = 0x87654321;
+	printf("0x%x\n", x & 0xFF); // Extract LSByte
+	printf("0x%x\n", x ^ ~0xFF);
+	printf("0x%x", x | 0xFF);
 }
+#endif

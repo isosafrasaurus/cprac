@@ -4,14 +4,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../array.c \
 ../boolean.c \
 ../information.c 
 
 C_DEPS += \
+./array.d \
 ./boolean.d \
 ./information.d 
 
 OBJS += \
+./array.o \
 ./boolean.o \
 ./information.o 
 
@@ -28,7 +31,7 @@ OBJS += \
 clean: clean--2e-
 
 clean--2e-:
-	-$(RM) ./boolean.d ./boolean.o ./information.d ./information.o
+	-$(RM) ./array.d ./array.o ./boolean.d ./boolean.o ./information.d ./information.o
 
 .PHONY: clean--2e-
 
