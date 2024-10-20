@@ -6,17 +6,20 @@
 C_SRCS += \
 ../array.c \
 ../boolean.c \
-../information.c 
+../information.c \
+../struct.c 
 
 C_DEPS += \
 ./array.d \
 ./boolean.d \
-./information.d 
+./information.d \
+./struct.d 
 
 OBJS += \
 ./array.o \
 ./boolean.o \
-./information.o 
+./information.o \
+./struct.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -31,7 +34,7 @@ OBJS += \
 clean: clean--2e-
 
 clean--2e-:
-	-$(RM) ./array.d ./array.o ./boolean.d ./boolean.o ./information.d ./information.o
+	-$(RM) ./array.d ./array.o ./boolean.d ./boolean.o ./information.d ./information.o ./struct.d ./struct.o
 
 .PHONY: clean--2e-
 

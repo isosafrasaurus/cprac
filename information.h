@@ -1,8 +1,14 @@
 /*
- * information.c
+ * information.h
+ *
+ *  Created on: Oct 20, 2024
+ *      Author: pierc
  */
 
 #include <stdio.h>
+
+#ifndef INFORMATION_H_
+#define INFORMATION_H_
 
 /*
  * byte_pointer is a pointer to an unsigned char. Recall that unsigned char has a
@@ -21,7 +27,7 @@ typedef unsigned char *byte_pointer;
  * start is a pointer that holds the address of an unsigned char. start[i]
  * dereferences the pointer and accesses the value there, which has size 1 byte.
  */
-static void show_bytes(byte_pointer start, size_t len) {
+void show_bytes(byte_pointer start, size_t len) {
 	int i;
 	for (i = 0; i < len; i++) {
 		// Print byte as hexadecimal with at least two digits.
@@ -37,15 +43,15 @@ static void show_bytes(byte_pointer start, size_t len) {
  *
  * There will be sizeof(int) bytes.
  */
-static void show_int(int x) {
+void show_int(int x) {
 	show_bytes((byte_pointer) &x, sizeof(int));
 }
 
-static void show_float(float x) {
+void show_float(float x) {
 	show_bytes((byte_pointer) &x, sizeof(int));
 }
 
-static void show_pointer(void *x) {
+void show_pointer(void *x) {
 	show_bytes((byte_pointer) &x, sizeof(void *));
 }
 
@@ -57,7 +63,7 @@ static void show_pointer(void *x) {
  * Note: in char *ptr, * is the type specifier which indicates pointer.
  * In *ptr = 'A', * is the dereference operator, which gets the value.
  */
-static int is_little_endian() {
+int is_little_endian() {
     unsigned int num = 1; // 0x00000001
     char *ptr = (char *) &num;
 
@@ -67,25 +73,4 @@ static int is_little_endian() {
     return 0;
 }
 
-#if 0
-int main() {
-	show_int(0x1234);
-	// Output: 34 12 00 00
-	// Due to little endian coding. MSByte has 12 and LSByte has 34.
-
-	int *ptr;
-	show_pointer(ptr);
-	// Output: 58 05 ba dc 15 02 00 00
-	// Note this has 8 bytes because this code was run on a 64-bit machine.
-
-	is_little_endian ? printf("System is Little-endian\n") : printf("System is Big-endian\n");
-
-	int x;
-	printf("%llx\n", &x); // Read as if it were a long long (8 bytes) in hex format
-	show_pointer(&x);
-	/*
-	 * Output: 18577ff6b4
-	 * b4 f6 7f 57 18 00 00 00
-	 */
-}
-#endif
+#endif /* INFORMATION_H_ */
