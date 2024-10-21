@@ -1,1 +1,2 @@
-information.o: ../information.c
+information.o: ../information.c ../information.h
+../information.h:

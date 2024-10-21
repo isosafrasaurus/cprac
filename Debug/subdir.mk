@@ -7,18 +7,21 @@ C_SRCS += \
 ../array.c \
 ../boolean.c \
 ../information.c \
+../memory.c \
 ../struct.c 
 
 C_DEPS += \
 ./array.d \
 ./boolean.d \
 ./information.d \
+./memory.d \
 ./struct.d 
 
 OBJS += \
 ./array.o \
 ./boolean.o \
 ./information.o \
+./memory.o \
 ./struct.o 
 
 
@@ -34,7 +37,7 @@ OBJS += \
 clean: clean--2e-
 
 clean--2e-:
-	-$(RM) ./array.d ./array.o ./boolean.d ./boolean.o ./information.d ./information.o ./struct.d ./struct.o
+	-$(RM) ./array.d ./array.o ./boolean.d ./boolean.o ./information.d ./information.o ./memory.d ./memory.o ./struct.d ./struct.o
 
 .PHONY: clean--2e-
 
