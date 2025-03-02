@@ -46,5 +46,5 @@ void echo() {
 
 int main() {
 	sizes();
-	using_pointers();
+	pointer_arith();
 }
