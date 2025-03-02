@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "prelims.h"
 #include "arrays.h"
+#include "pointers.h"
 
 /*
  * In C, re-declaration of methods with consistent return types and argument
@@ -45,4 +46,5 @@ void echo() {
 
 int main() {
 	sizes();
+	using_pointers();
 }
