@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h> 
 
 /*
  * A word is a fixed-size unit of data that a processor can handle in a single
@@ -10,8 +11,8 @@
 void using_pointers() {
 	int int1 = 1036;
 	int int2 = 8;
-	// & variable = address
-	// * address = variable stored at address
+	// & variable : address (create pointer)
+	// * address : variable stored at address (dereference)
 	// * address = val : stores value at address (indirectly)
 	
 	// Declare pointers to int
@@ -75,5 +76,98 @@ void pointer_arith() {
 	int x = 0;
 	int *ptrx = &x;
 	printf("Pointer to x: %p\n", ptrx);
+	
+	// Get value of pointer and do traditional addition
 	printf("Should be the same: %p %p\n", ptrx + 3, (size_t) &x + (sizeof(x) * 3));
+	
+	// Convert pointer to char * so that you need to move it manually bytewise
+	printf("Should be the same: %p %p\n", ptrx + 3, (char *) &x + (sizeof(x) * 3));
+}
+
+void generic_pointers() {
+	// Generic pointer is defined as
+	void *p;
+	// You can't use pointer arithmetic here
+	
+	int i = 43242; char c = 'Y';
+	// Both work:
+	p = &i;
+	p = &c;
+	
+	// Type cast tells compiler to change object type without actuall affecting
+	// underlying bytes
+	// By changing the pointer type to re-interpret data at address
+	putchar(*(char *) p);
+}
+
+/*
+ * Input: void *p, a pointer to anything
+ * Output: char, the byte present at void *p
+ */
+char probe_byte(void *p) {
+	return (*(char *) p);
+}
+
+/*
+ * When passing arrays, the size is lost. Therefore you need to pass the size
+ * manually.
+ */
+size_t passed_array_size(int array[]) {
+	return sizeof(array);
+}
+
+size_t passed_array_pointer(int (*ptri)[]) {
+	return sizeof(ptri);
+}
+
+void reverse_int_array(int array[], unsigned int length) {
+	for (unsigned int i = 0; i < (length << 1); i++) {
+		int t = array[i];
+		array[i] = array[length - i];
+		array[length - i] = t;
+	}
+}
+
+/*
+ * This approach does not work because static_array is defined within
+ * bad_array_return's scope. Upon return, its memory can be overwritten.
+ */
+int* bad_array_return() {
+    int static_array[3] = {1, 2, 3};
+    return static_array;
+}
+
+/*
+ * The recommended way to return an array is to use malloc. However the space
+ * must be freed once it is used. Unlike VLA, malloc allocates on the heap,
+ * so there is no risk of the memory being corrupted later.
+ *
+ * int* my_array = array_return(5); free(my_array);
+ */
+int* array_return(int size) {
+    if (size <= 0) {
+        return NULL;
+    }
+
+    int* arr = (int*)malloc(size * sizeof(int));
+    if (arr == NULL) {
+        return NULL;
+    }
+
+    for (int i = 0; i < size; i++) {
+        arr[i] = i;
+    }
+
+    return arr;
+}
+
+void passed_array_demo() {
+	int arr[10];
+	int (*ptr_intarr)[10] = &arr;
+	printf("Prints 40: %zu\n", sizeof(arr));
+	printf("Prints 8, the pointer size: %zu\n", passed_array_size(arr));
+	printf("Prints 8, the pointer size: %zu\n", passed_array_pointer(ptr_intarr));
+	
+	// In fact, it is the same as just casting &arr to (int *)
+	printf("Print 8 equivalently: %zu\n", sizeof((int *) &arr));
 }

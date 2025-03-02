@@ -46,5 +46,5 @@ void echo() {
 
 int main() {
 	sizes();
-	pointer_arith();
+	passed_array_demo();
 }
