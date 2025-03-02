@@ -39,12 +39,12 @@ void array_demo() {
  
 void array_alignment() {
 	char c1;
-	int arr[3];
+	int array[3];
 	char c2;
 	int i;
 	
 	printf("%p ", (void *) &c1);
-	printf("%p ", (void *) &arr);
+	printf("%p ", (void *) &array);
 	printf("%p ", (void *) &c2);
 	printf("%p ", (void *) &i);
 }
@@ -63,3 +63,32 @@ void array_alignment() {
  * The gap between c1 (at 0xFA8F) and arr (at 0xFA80) indicates that padding
  * has been inserted by the compiler.
  */
+ 
+void array_sizes() {
+	int array[10];
+	printf("Size of array: %zu\n", sizeof(array));
+	printf("Size of array[0]: %zu\n", sizeof(array[0]));
+	
+	int array_len = sizeof(array) / sizeof(array[0]);
+	printf("Length of array: %d\n", array_len);
+	for (int i = 0; i < 10; i++) {
+		printf("%p\n", (void *) &array[i]);
+	}
+}
+
+/*
+ * VLA size is known at compilation because it must be passed by the callee.
+ * Thus, no malloc required.
+ */
+void variable_arrays(int n) {
+	int array[n];
+	printf("Size of array: %zu\n", sizeof(array));
+	printf("Size of array[0]: %zu\n", sizeof(array[0]));
+	
+	int array_len = sizeof(array) / sizeof(array[0]);
+	printf("Length of array: %d\n", array_len);
+	for (int i = 0; i < 10; i++) {
+		printf("%p\n", (void *) &array[i]);
+	}
+}
+

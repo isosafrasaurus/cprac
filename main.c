@@ -23,8 +23,8 @@ int putchar(int c);
  * Preliminaries.
  */
 void prelims() {
-	printf("%d", sum_upto(5));
-	printf("%d", sum_upto_iter(5));
+	printf("%d ", sum_upto(5));
+	printf("%d ", sum_upto_iter(5));
 	putchar('A');
 }
 
@@ -45,5 +45,5 @@ void echo() {
 
 int main() {
 	sizes();
-	array_alignment();
+	variable_arrays(11);
 }
