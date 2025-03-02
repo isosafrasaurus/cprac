@@ -7,10 +7,13 @@
 
 #include <stdio.h>
 #include "prelims.h"
+#include "arrays.h"
 
 /*
  * In C, re-declaration of methods with consistent return types and argument
  * types does not cause an error.
+ *
+ * These are already defined in stdio.h
  */
 int getchar(void);
 int putchar(int c);
@@ -41,6 +44,6 @@ void echo() {
 }
 
 int main() {
-	echo();
-	return 0;
+	sizes();
+	array_alignment();
 }

@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -pedantic -std=c11
 
 TARGET = main
 
-OBJ = main.o prelims.o
+OBJ = main.o prelims.o arrays.o
 
 all: $(TARGET)
 
@@ -17,6 +17,10 @@ main.o: main.c prelims.h
 # Compile prelims.c -> prelims.o
 prelims.o: prelims.c prelims.h
 	$(CC) $(CFLAGS) -c prelims.c
+
+# Compile arrays.c -> arrays.o
+arrays.o: arrays.c arrays.h
+	$(CC) $(CFLAGS) -c arrays.c
 
 clean:
 	rm -f $(OBJ) $(TARGET)
