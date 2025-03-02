@@ -31,19 +31,18 @@ void prelims() {
 /*
  * LB 02
  * Echo characters typed at the terminal. For consistency, flush output buffer.
- * This is because of the difference between line-buffered and full buffered
+ * This is because of the difference between line buffered and full buffered
  * stdout.
  */
 void echo() {
 	char c;
 	while ((c = getchar()) != EOF) {
 		putchar(c);
-		fflush(stdout); // Force line-buffer
+		fflush(stdout); // Force line buffer
 	}
 	return;
 }
 
 int main() {
 	sizes();
-	variable_arrays(11);
 }

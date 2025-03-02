@@ -5,18 +5,28 @@
 #include <stdio.h>
 #include <limits.h>
 
-void sizes() {
-    printf("Word size: %zu bytes\n", sizeof(void *));
+/* 
+ * Since the result of arithmetic on size_t is size_t, it is best to use
+ * size_t for all operations resulting from sizeof().
+ * This avoids implicit conversion. However, if you must do a conversion,
+ * then if SIZE_MAX is less than or equal to UINT_MAX, then any size_t value
+ * can be represented by an unsigned int, so that's safe.
+ * Else, if SIZE_MAX is less than or equal to ULONG_MAX, then you should
+ * use unsigned long.
+ * However, it is possible for SIZE_MAX to be even bigger than LLONG_MAX.
+ *
+ * The size() function contains printers for these values.
+ */
 
+void sizes() {
     printf("Size of char: %zu bytes, Range: %d to %d\n", sizeof(char), CHAR_MIN, CHAR_MAX);
     printf("Size of short: %zu bytes, Range: %d to %d\n", sizeof(short), SHRT_MIN, SHRT_MAX);
     printf("Size of int: %zu bytes, Range: %d to %d\n", sizeof(int), INT_MIN, INT_MAX);
     printf("Size of long: %zu bytes, Range: %ld to %ld\n", sizeof(long), LONG_MIN, LONG_MAX);
     printf("Size of long long: %zu bytes, Range: %lld to %lld\n", sizeof(long long), LLONG_MIN, LLONG_MAX);
 
+    printf("Pointer size: %zu bytes\n", sizeof(void *));
     printf("Size of size_t: %zu bytes\n", sizeof(size_t));
-
-    return;
 }
  
 void array_demo() {
@@ -66,12 +76,14 @@ void array_alignment() {
  
 void array_sizes() {
 	int array[10];
+	
 	printf("Size of array: %zu\n", sizeof(array));
 	printf("Size of array[0]: %zu\n", sizeof(array[0]));
+		 
+	size_t array_len = sizeof(array) / sizeof(array[0]);
 	
-	int array_len = sizeof(array) / sizeof(array[0]);
-	printf("Length of array: %d\n", array_len);
-	for (int i = 0; i < 10; i++) {
+	printf("Length of array: %zu\n", array_len);
+	for (size_t i = 0; i < array_len; i++) {
 		printf("%p\n", (void *) &array[i]);
 	}
 }
@@ -85,10 +97,29 @@ void variable_arrays(int n) {
 	printf("Size of array: %zu\n", sizeof(array));
 	printf("Size of array[0]: %zu\n", sizeof(array[0]));
 	
-	int array_len = sizeof(array) / sizeof(array[0]);
+	size_t array_len = sizeof(array) / sizeof(array[0]);
 	printf("Length of array: %d\n", array_len);
-	for (int i = 0; i < 10; i++) {
+	for (size_t i = 0; i < 10; i++) {
 		printf("%p\n", (void *) &array[i]);
 	}
 }
 
+/*
+ * Multidimensional arrays.
+ */
+void matrices() {
+	int matrix[2][3];
+	matrix[1][0] = 17;
+	
+	/*
+	 * Storage is achieved in row-major order.
+	 * (TOP)
+	 * matrix[1][2]
+	 * matrix[1][1]
+	 * matrix[1][0]
+	 * matrix[0][2]
+	 * matrix[0][1]
+	 * matrix[0][0]
+	 * (BOTTOM)
+	 */
+}
