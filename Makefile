@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -pedantic -std=c11
 
 TARGET = main
 
-OBJ = main.o prelims.o arrays.o pointers.o
+OBJ = main.o prelims.o arrays.o pointers.o strings_and_structs.o
 
 all: $(TARGET)
 
@@ -25,6 +25,10 @@ arrays.o: arrays.c arrays.h
 # Compile pointers.c -> pointers.h
 pointers.o: pointers.c pointers.h
 	$(CC) $(CFLAGS) -c pointers.c
+
+# Compile strings_and_structs.c -> strings_and_structs.h
+strings_and_structs.o: strings_and_structs.c strings_and_structs.h
+	$(CC) $(CFLAGS) -c strings_and_structs.c
 
 clean:
 	rm -f $(OBJ) $(TARGET)

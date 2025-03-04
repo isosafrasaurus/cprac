@@ -1,0 +1,1 @@
+void dump_string_to_out(char *str);
